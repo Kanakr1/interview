@@ -1,8 +1,32 @@
 // A child is running up a staircase with n steps and can hop either 1 step, 2 steps, or 3 steps at at time. 
 // Implement a method to count how many possible ways the child can run up the stairs.
 
-let tripleStep = (n) => {
+let tripleStep = (n, total = 0, numWays = [0]) => {
+  if (total > n) {
+    return;
+  }
 
+  if (total === n) {
+    return numWays[0]++;
+  }
+
+  for (let i = 1; i <= 3; i++) {
+    tripleStep(n, total + i, numWays);
+  }
+  return numWays[0];
+}
+
+let tripleMemo = (n, memo = []) => {
+  if (n < 0) {
+    return 0;
+  } else if (n === 0) {
+    return 1;
+  } else if (memo[n] > -1) {
+    return memo[n];
+  } else {
+    memo[n] = tripleMemo(n - 1, memo) + tripleMemo(n - 2, memo) + tripleMemo(n - 3, memo);
+    return memo[n];
+  }
 }
 
 /* Hints
@@ -17,3 +41,16 @@ f(100) = f(99) + f(98) + f(97) or f(100) = f(99) + f(98) + f(97)?
 - Try memoization as a way to optimize an inefficient recursive program.
 
 */
+let n = 4;
+
+
+console.time('recurse');
+let result = tripleStep(n);
+console.timeEnd('recurse');
+// console.log(result);
+
+console.time('memo');
+let memo = tripleMemo(n);
+console.timeEnd('memo');
+console.log(memo);
+
