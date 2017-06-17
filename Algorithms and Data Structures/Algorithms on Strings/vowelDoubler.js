@@ -1,0 +1,36 @@
+var vowelDoubler = (charArray) => {
+  var vowels = {
+    a: 'a', 
+    e: 'e', 
+    i: 'i',
+    o: 'o',
+    u: 'u'
+  };
+
+  var resultLength = charArray.length;
+
+  for (var i = 0; i < charArray.length - 1; i++) {
+    if (vowels.hasOwnProperty(charArray[i])) {
+      resultLength++;
+    }
+  }
+
+  var charIndex = charArray.length - 1;
+  for (var i = resultLength - 1; i >= 0; i--) {
+    if (vowels.hasOwnProperty(charArray[charIndex])) {
+      charArray[i] = charArray[charIndex];
+      charArray[--i] = charArray[charIndex];
+    } else {
+      charArray[i] = charArray[charIndex];
+    }
+    charIndex--;
+  }
+
+  return charArray;
+};
+
+var string = 'What\'s up dude?';
+var array = string.split('');
+
+var doubledArray = vowelDoubler(array);
+console.log(doubledArray.join(''));
