@@ -29,6 +29,23 @@ let tripleMemo = (n, memo = []) => {
   }
 }
 
+function getWays(n, c, memo = []){
+  if (n === 0) {
+    return 1;
+  } else if (n < 0) {
+    return 0;
+  } else if (memo[n] > -1) {
+    return memo[n];
+  } else {
+    let total = 0
+    for (let i = 0; i < c.length; i++) {
+      total += getWays(n - c[i], c, memo);
+    }
+    memo[n] = total;
+    return memo[n];
+  }
+}
+
 /* Hints
 
 - Approach this from the top down. What is the very last hop the child made?
@@ -54,3 +71,4 @@ let memo = tripleMemo(n);
 console.timeEnd('memo');
 console.log(memo);
 
+console.log(getWays(n, [1, 2, 3]));
