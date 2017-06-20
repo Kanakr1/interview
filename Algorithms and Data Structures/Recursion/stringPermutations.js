@@ -14,4 +14,4 @@ var permutations = function(s, prefix, result) {
   return result;
 }
 
-console.log(permutations('blah'));
+console.log(permutations('blah').sort());
