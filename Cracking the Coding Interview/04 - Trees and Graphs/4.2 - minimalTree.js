@@ -7,12 +7,13 @@ let minimalTree = (array, start = 0, end = array.length - 1) => {
     return null;
   }
 
-  let mid = Math.floor((start + end) / 2);
+  let mid = Math.ceil((start + end) / 2);
   let root = new BinaryTree(array[mid]);
   root.left = minimalTree(array, start, mid - 1);
   root.right = minimalTree(array, mid + 1, end);
   return root;
 }
+module.exports.minimalTree = minimalTree;
 
 let sortedArray = [1, 2, 3, 4, 5, 6, 7, 8];
 let root = minimalTree(sortedArray);
@@ -23,15 +24,14 @@ console.log(root.left.left.val);
 console.log(root.left.right.val);
 console.log(root.right.left.val);
 console.log(root.right.right.val);
-// console.log(root.left.left.left.val);
+console.log(root.left.left.left.val);
 // console.log(root.left.left.right.val);
 // console.log(root.left.right.left.val);
 // console.log(root.left.right.right.val);
-// console.log(root.right.left.left.val);
+console.log(root.right.l eft.left.val);
 // console.log(root.right.left.right.val);
 // console.log(root.right.right.left.val);
-console.log(root.right.right.right.val);
-
+// console.log(root.right.right.right.val);
 
 /* Hints: 
 
