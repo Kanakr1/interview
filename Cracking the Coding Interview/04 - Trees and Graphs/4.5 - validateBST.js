@@ -2,26 +2,29 @@
 
 let { BinaryTree } = require('./4.0 - TreesAndGraphs.js');
 
-let validateBST = (tree) => {
-  let traversal = inOrderTraversal(tree);
-  for (let i = 1; i < traversal.length; i++) {
-    if (traversal[i] < traversal[i - 1]) {
+// Book's hinted solution
+let validateBST = (tree, min = null, max = null) => {
+  if (!tree) {
+    return true;
+  }
+
+  if (max !== null && min !== null) {
+    if (min > tree.val || tree.val > max) {
       return false;
     }
   }
 
-  return true;
-}
-
-let inOrderTraversal = (tree, result = []) => {
-  if (!tree) {
-    return result;
+  if (min === null && max !== null) {
+    if (tree.val > max) {
+      return false;
+    }
+  } else if (max === null && min !== null) {
+    if (tree.val < min) {
+      return false;
+    }
   }
 
-  inOrderTraversal(tree.left, result);
-  result.push(tree.val);
-  inOrderTraversal(tree.right, result);
-  return result;
+  return validateBST(tree.left, min, tree.val) && validateBST(tree.right, tree.val, max);
 }
 
 let minimalTree = (array, start = 0, end = array.length - 1) => {
@@ -48,7 +51,6 @@ let nine = four.addChildVal(9, 'right');
 
 console.log(validateBST(nonBST));
 
-
 /* Hints: 
 
 - If you traversed the tree using an in-order travesal and the elements were truly in the right order, does this 
@@ -58,14 +60,36 @@ they must be on a specific side (usually the left).
 node on the left must be less than the current node, which must be less than all the nodes on the right.
 - If every node on the left must be less than or equal to the current node, then this is really the same thing as 
 saying that the biggest node on the left must be less than or equal to the current node.
+- Rather than validating the current node's value against leftTree.max and rightTree.min, can we flip around the 
+logic? Validate the left tree's nodes to ensure that they are smaller than current.value.
+- Think about checkBST function as a recursive function that ensures each node is within an allowable (min, max) 
+range. At first, this range is infinite. When we traverse to the left, the min is negatie infinity and the max is 
+root.value. Can you implmenet this recurisve function and properly adjust these ranges as you traverse the tree?
 
 */
 
+/*
+// use in order traversal - doesn't always work
+let validateBST = (tree) => {
+  let traversal = inOrderTraversal(tree);
+  for (let i = 1; i < traversal.length; i++) {
+    if (traversal[i] < traversal[i - 1]) {
+      return false;
+    }
+  }
 
+  return true;
+}
 
+let inOrderTraversal = (tree, result = []) => {
+  if (!tree) {
+    return result;
+  }
 
+  inOrderTraversal(tree.left, result);
+  result.push(tree.val);
+  inOrderTraversal(tree.right, result);
+  return result;
+}
 
-
-
-
-
+*/
