@@ -58,42 +58,42 @@ function trapWater(heights){
 
   // ************************
   // Leet code solution - works
-  // let left = 0; 
-  // let right = heights.length - 1;
-  // let water = 0;
-  // let maxLeft = maxRight = 0;
+  let left = 0; 
+  let right = heights.length - 1;
+  let water = 0;
+  let maxLeft = maxRight = 0;
 
-  // while (left <= right) {
-  //   if (heights[left] <= heights[right]) {
-  //     if (heights[left] >= maxLeft) { 
-  //       maxLeft = heights[left]; 
-  //     } else { 
-  //       water += maxLeft - heights[left]; 
-  //     }
-  //     left++;
-  //   } else {
-  //     if (heights[right] >= maxRight) {
-  //       maxRight = heights[right];
-  //     } else {
-  //       water += maxRight - heights[right];
-  //     }
-  //     right--;
-  //   }
-  // }
-  // return water;
+  while (left <= right) {
+    if (heights[left] <= heights[right]) {
+      if (heights[left] >= maxLeft) { 
+        maxLeft = heights[left]; 
+      } else { 
+        water += maxLeft - heights[left]; 
+      }
+      left++;
+    } else {
+      if (heights[right] >= maxRight) {
+        maxRight = heights[right];
+      } else {
+        water += maxRight - heights[right];
+      }
+      right--;
+    }
+  }
+  return water;
 
   // ************************
   // Staging day answer - calls slice over and over again - uses more time/memory 
-  function findMax(array) {
-    return Math.max.apply(null, array);
-  }
+  // function findMax(array) {
+  //   return Math.max.apply(null, array);
+  // }
 
-  return heights.reduce(function(totalWaterHeight, middleTower, i, heights) {
-    var tallestLeft = findMax(heights.slice(0, i));
-    var tallestRight = findMax(heights.slice(i));
-    var waterHeight = Math.min(tallestLeft, tallestRight) - middleTower;
-    return totalWaterHeight + Math.max(waterHeight, 0);
-  }, 0);
+  // return heights.reduce(function(totalWaterHeight, middleTower, i, heights) {
+  //   var tallestLeft = findMax(heights.slice(0, i));
+  //   var tallestRight = findMax(heights.slice(i));
+  //   var waterHeight = Math.min(tallestLeft, tallestRight) - middleTower;
+  //   return totalWaterHeight + Math.max(waterHeight, 0);
+  // }, 0);
 }
 
 let h = [37,9,61,94,65,70,51,57,88,46,79,50,35,58,60]; // 207

@@ -12,7 +12,7 @@ function coinChange (n, c) {
   return memo[n];
 }
 
-let result = coinChange(100, [1, 5, 10, 25]);
+let result = coinChange(5, [1, 5, 10, 25]);
 console.log(result);
 
 // initialize memo[0] to 1 (there is only 1 way to make 0)
