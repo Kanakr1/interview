@@ -28,9 +28,13 @@ let powerRecurse = (set, result = []) => {
   return powerRecurse(set, result);
 }
 
-let set = ['a', 'b', 'c'];
-// let result = powerSet(set);
+let set = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm'];
+console.time('DP');
+let result = powerSet(set);
+console.timeEnd('DP');
 // console.log(result);
 
+console.time('Recurse');
 let recurse = powerRecurse(set);
-console.log(recurse);
+console.timeEnd('Recurse');
+// console.log(recurse);
